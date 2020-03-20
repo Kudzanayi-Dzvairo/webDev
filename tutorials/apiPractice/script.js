@@ -7,9 +7,9 @@ logo.src = './logo.png'
 const container = document.createElement('div')
 container.className = 'container'
 
-const errorMessage = document.createElement('marquee')
-errorMessage.textContent = 'Gah ,its not working!'
-app.append(errorMessage)
+// const errorMessage = document.createElement('marquee')
+// errorMessage.textContent = 'Gah ,its not working!'
+// app.append(errorMessage)
 
 app.append(logo)
 app.append(container)
