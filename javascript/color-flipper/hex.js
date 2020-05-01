@@ -7,9 +7,13 @@ btn.addEventListener('click', () =>{
     let hexColor = '#'
 
     for(let i = 0; i < 6; i++){
-        randomNumber = Math.floor(Math.random() * hex.length)
+        randomNumber = getRandomNumber()
         hexColor += hex[randomNumber]
     }
      color.textContent = hexColor
      document.body.style.backgroundColor = hexColor
 })
+
+function getRandomNumber(){
+    return Math.floor(Math.random() * hex.length)
+}
