@@ -71,30 +71,90 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "dinosaur steak",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const canvas = document.querySelector('.section-center')
+const container = document.querySelector('.btn-container')
 
+
+//load items
 window.addEventListener('DOMContentLoaded', () => {
-  let displayMenu = menu.map(item => {
-   return `
-   <article class="menu-item">
-   <img src="${item.img}" class="photo" alt="${item.title}">
-    <div class="item-info">
-      <header>
-    <h4>${item.title}</h4>
-    <h4 class="price">$${item.price}</h4>
-  </header>
-  <p class="item-text">
-   ${item.desc}
-  </p>
-</div>
-</article>`
+  displayMenuItems(menu)
+  displayButtons()
 
-  })
-   
-  displayMenu = displayMenu.join('')
-  canvas.innerHTML = displayMenu
+
+
+
 })
 
-function displayMenItems(menuItems)
+
+
+function displayMenuItems(menuItems){
+  let displayMenu = menuItems.map(item => {
+    return `
+    <article class="menu-item">
+    <img src="${item.img}" class="photo" alt="${item.title}">
+     <div class="item-info">
+       <header>
+     <h4>${item.title}</h4>
+     <h4 class="price">$${item.price}</h4>
+   </header>
+   <p class="item-text">
+    ${item.desc}
+   </p>
+ </div>
+ </article>`
+ 
+   })
+    
+   displayMenu = displayMenu.join('')
+   canvas.innerHTML = displayMenu
+
+}
+
+
+function displayButtons(){
+  const categories = menu.reduce((values, item) => {
+    if(!values.includes(item.category)){
+      values.push(item.category)
+    }
+   return values
+ }, ['all'])
+ 
+ const categoryBtns = categories.map(category => {
+   return ` <button class="filter-btn" type='button' data-id="${category}">${category}</button>`
+ })
+ .join('')
+ console.log(categoryBtns)
+
+ container.innerHTML = categoryBtns
+ const filterBtns = document.querySelectorAll('.filter-btn')
+
+ //filter items
+filterBtns.forEach(btn => {
+ btn.addEventListener('click', function(e){
+   const category  = e.currentTarget.dataset.id
+   console.log(category)
+   const menuCategory = menu.filter(menuItem => {
+     if(menuItem.category === category){
+       return menuItem
+     }  
+   })
+
+   if(category === 'all'){
+     displayMenuItems(menu)
+   }else{
+     displayMenuItems(menuCategory)
+   }
+ })
+ 
+})
+}
